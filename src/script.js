@@ -1,16 +1,7 @@
-import axios from "axios";
-
+import { fetchBreeds, fetchCatByBreed } from "./js/cat-api";
 import { Notify } from "notiflix/build/notiflix-notify-aio";
 import { Report } from "notiflix/build/notiflix-report-aio";
 import SlimSelect from "slim-select";
-
-axios.defaults.headers.common["x-api-key"] =
-  "live_YXYej8kwyaXTKjD6PYYf9QSKxeBkiJJAnN2oqgkxn908hW1gxxcKy0WWrvTcpwmi";
-const API_URL = "https://api.thecatapi.com/v1/breeds";
-const SEARCH_URL = `https://api.thecatapi.com/v1/images/search`;
-function fetchBreeds() {
-  return axios.get(API_URL);
-}
 
 const selectEl = document.querySelector(".breed-select");
 const loaderEl = document.querySelector(".loader");
@@ -70,6 +61,7 @@ function onValueId(e) {
     .catch(fetchError);
 }
 function fetchError() {
+  catInfoEl.innerHTML = "";
   Report.failure(error.textContent, "Try reloading the page!");
 }
 function success() {
@@ -81,7 +73,15 @@ function load() {
 }
 
 function slim() {
-  new SlimSelect({
+  const slimSelect = new SlimSelect({
     select: selectEl,
+    settings: {
+      placeholderText: "Custom Placeholder Text",
+    },
   });
+
+  const firstOption = selectEl.querySelector("option:first-child");
+  if (firstOption) {
+    onValueId({ target: { value: firstOption.value } });
+  }
 }
