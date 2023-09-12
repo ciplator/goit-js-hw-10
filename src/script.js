@@ -33,12 +33,11 @@ function createMarkupCat({
     <p class="description">${temperament}</p></div>`;
 }
 
-export { createMarkup, createMarkupCat };
 
 function fetchCatByBreed(breedId) {
   return axios.get(`${SEARCH_URL}?breed_ids=${breedId}`);
 }
-export { fetchBreeds, fetchCatByBreed };
+
 
 selectEl.addEventListener("change", onValueId);
 fetchBreeds()
