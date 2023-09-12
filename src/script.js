@@ -1,4 +1,4 @@
-
+import axios from 'axios';
 import { fetchBreeds, fetchCatByBreed } from "./js/cat-api";
 import { Notify } from "notiflix/build/notiflix-notify-aio";
 import { Report } from "notiflix/build/notiflix-report-aio";
@@ -34,9 +34,6 @@ function createMarkupCat({
 }
 
 
-function fetchCatByBreed(breedId) {
-  return axios.get(`${SEARCH_URL}?breed_ids=${breedId}`);
-}
 
 
 selectEl.addEventListener("change", onValueId);
